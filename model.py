@@ -4,26 +4,28 @@ import html
 
 
 class Model:
-    categories = ["Any Category","General Knowledge", "Entertainment: Books", "Entertainment: Film",
+    categories = ["Any Category", "General Knowledge", "Entertainment: Books", "Entertainment: Film",
                   "Entertainment: Music", "Entertainment: Musicals &amp; Theatres", "Entertainment: Television",
                   "Entertainment: Video Games", "Entertainment: Board Games", "Science &amp; Nature",
                   "Science: Computers", "Science: Mathematics", "Mythology", "Sports", "Geography", "History",
                   "Politics", "Art", "Celebrities", "Animals", "Vehicles", "Entertainment: Comics", "Science: Gadgets",
                   "Entertainment: Japanese Anime &amp; Manga", "Entertainment: Cartoon &amp; Animations", ]
 
-    difficulty = ['any', 'easy', 'medium', 'hard']
 
-    categories_api = [{'value': value} for value, category in enumerate(categories[1:], 9)]
+    difficulty = ['Any', 'Easy', 'Medium', 'Hard']
+
+    categories_api = {category: {'value': value} for value, category in enumerate(categories[1:], 9)}
+    print(categories_api)
 
     parameters = {
         "amount": 10,
-        # "category": 'any',
+        "category": None,
+        "difficulty": None,
         "type": 'boolean',
-        # "difficulty": str,
     }
 
     def __init__(self):
-        self.bank = self.build_question_bank()
+        self.bank = []
         self.score = 0
         self.question = self.Question_model()
 
@@ -37,6 +39,7 @@ class Model:
     def build_question_bank(self):
         # https://opentdb.com/api_config.php
         response = requests.get(url="https://opentdb.com/api.php", params=self.parameters)
+        print(response.url)
         response.raise_for_status()
         data = response.json()
         return data["results"]

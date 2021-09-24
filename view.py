@@ -36,24 +36,30 @@ class View:
             self.wrong_button.grid(row=3, column=1)
 
 
-# class Menu:
-#     def __init__(self, controller):
-#         labels
-        # self.title_label = Label(text=f"Choose the game options", fg='white', bg=BACKGROUND_COLOR, font=FONT)
-        # self.amount_label = Label(text=f"Number of Questions:", fg='white', bg=BACKGROUND_COLOR, font=FONT)
-        # self.category_label = Label(text=f"Select Category:", fg='white', bg=BACKGROUND_COLOR, font=FONT)
-        # self.difficulty_label = Label(text=f"Select Difficulty:", fg='white', bg=BACKGROUND_COLOR, font=FONT)
-        # self.title_label.grid(row=0, column=0, columnspan=2)
-        # self.amount_label.grid(row=1, column=0, columnspan=2)
-        # self.category_label.grid(row=3, column=0, columnspan=2)
-        # self.difficulty_label.grid(row=5, column=0, columnspan=2)
-        #
-        #
-        # spinboxes
-        # self.question_amount_spinbox = Spinbox(from_=5, to=50,)
-        # self.question_category_spinbox = Spinbox(values=controller.model.categories)
-        # self.question_difficulty_spinbox = Spinbox(values=controller.model.difficulty)
-        # self.question_amount_spinbox.grid(row=2, column=0, columnspan=2)
-        # self.question_category_spinbox.grid(row=4, column=0, columnspan=2)
-        # self.question_category_spinbox.grid(row=6, column=0, columnspan=2)
+class Menu:
+    def __init__(self, controller):
+        # labels
+        self.title_label = Label(text=f"Game Options", fg='white', bg=BACKGROUND_COLOR, font=("Arial", 24, "bold"))
+        self.amount_label = Label(text=f"Number of Questions:", fg='white', bg=BACKGROUND_COLOR, font=FONT)
+        self.category_label = Label(text=f"Select Category:", fg='white', bg=BACKGROUND_COLOR, font=FONT)
+        self.difficulty_label = Label(text=f"Select Difficulty:", fg='white', bg=BACKGROUND_COLOR, font=FONT)
+        self.title_label.grid(row=0, column=0, columnspan=2, pady=5)
+        self.amount_label.grid(row=1, column=0, columnspan=2)
+        self.category_label.grid(row=3, column=0, columnspan=2)
+        self.difficulty_label.grid(row=5, column=0, columnspan=2)
 
+
+
+        # spinboxes
+        self.question_amount_spinbox = Spinbox(from_=5, to=50, width=50, font=("Arial", 15, "bold"))
+        self.question_category_spinbox = Spinbox(values=controller.model.categories, width=50, font=("Arial", 15, "bold"))
+        self.question_difficulty_spinbox = Spinbox(values=controller.model.difficulty, width=50, font=("Arial", 15, "bold"))
+        self.question_amount_spinbox.grid(row=2, column=0, columnspan=2,pady=5)
+        self.question_category_spinbox.grid(row=4, column=0, columnspan=2,pady=5)
+        self.question_difficulty_spinbox.grid(row=6, column=0, columnspan=2,pady=5)
+
+        # buttons
+        self.generate_button = Button(text="Generate", command=controller.model_generate_api_parameters, width=20, height=2)
+        self.next_button = Button(text="Next", state=DISABLED,command=controller.model_set_parameters,width=20, height=2)
+        self.generate_button.grid(row=7, column=0, columnspan=2,sticky="W",pady=5)
+        self.next_button.grid(row=7, column=1,sticky='NW', pady=5)
